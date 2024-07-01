@@ -2,6 +2,8 @@ const express = require("express");
 const connectDB = require("./config/db");
 const excelDataRoutes = require("./routes/excelxDataRoutes");
 const consignmentRoutes = require("./routes/consignmentRoutes");
+const cors = require("cors");
+
 const app = express();
 
 // Connect to the database
@@ -9,6 +11,9 @@ connectDB();
 
 // Middleware
 app.use(express.json());
+
+// Enable CORS
+app.use(cors());
 
 // Routes
 app.use("/excelData", excelDataRoutes);
