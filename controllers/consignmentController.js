@@ -3,7 +3,7 @@ const Consignment = require("../models/Consignment");
 exports.saveConsignor = async (req, res) => {
   try {
     const { name } = req.body;
-
+    console.log(name);
     // Find the first document or create a new one if none exists
     let consignment = await Consignment.findOne();
     if (!consignment) {
@@ -12,6 +12,7 @@ exports.saveConsignor = async (req, res) => {
 
     // Check if the consignor name already exists
     if (consignment.consignors.includes(name)) {
+      console.log("aldreay exist");
       return res
         .status(400)
         .json({ message: "Consignor name already exists." });
@@ -20,6 +21,7 @@ exports.saveConsignor = async (req, res) => {
     // Add the new consignor name
     consignment.consignors.push(name);
     await consignment.save();
+    console.log("anme added");
 
     res.status(201).json({ message: "Consignor name saved successfully." });
   } catch (error) {
