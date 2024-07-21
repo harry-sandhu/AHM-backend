@@ -14,7 +14,7 @@ connectDB();
 // Middleware
 app.use(express.json());
 
-// Enable CORS
+// Enable CORS for all origins
 app.use(cors());
 
 app.get("/", (req, res) => {
@@ -26,6 +26,7 @@ app.use("/excelData", excelDataRoutes);
 app.use("/api", consignmentRoutes);
 app.use("/api/auth", userRoutes);
 app.use("/api/OTP", OTPRoutes);
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
