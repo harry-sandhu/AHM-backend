@@ -17,6 +17,10 @@ app.use(express.json());
 // Enable CORS
 app.use(cors());
 
+app.get("/", (req, res) => {
+  res.send("Server is working");
+});
+
 // Routes
 app.use("/excelData", excelDataRoutes);
 app.use("/api", consignmentRoutes);
