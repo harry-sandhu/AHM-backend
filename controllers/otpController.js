@@ -5,8 +5,8 @@ const OTP = require("../models/Otp");
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.Email_Otp,
-    pass: process.env.Email_Otp,
+    user: process.env.Email_Otp_true,
+    pass: process.env.Email_Otp_Password_true,
   },
 });
 

@@ -7,8 +7,8 @@ const User = require("../models/User"); // Adjust the path as necessary
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.Email_Otp,
-    pass: process.env.Email_Otp,
+    user: process.env.Email_Otp_true,
+    pass: process.env.Email_Otp_Password_true,
   },
 });
 
