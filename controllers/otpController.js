@@ -54,6 +54,7 @@ exports.sendOtpEmail = async (req, res) => {
         .json({ error: `Email could not be sent. backend ${res}` });
     } else {
       console.log(`Email sent to ${email}:`, info.response);
+      otpEntry();
       return res.status(200).json({ message: "Email sent successfully." });
     }
   });
@@ -61,10 +62,26 @@ exports.sendOtpEmail = async (req, res) => {
 
 // Controller function for verifying OTP
 exports.verifyOtp = async (req, res) => {
-  const { email, otp } = req.body;
+  let { email, otp } = req.body;
+  console.log("Request email:", email, "Request OTP:", otp);
+
+  // Normalize email and OTP
+  email = email.toLowerCase().trim();
+  otp = String(otp).trim();
 
   try {
-    const otpEntry = await OTP.findOne({ phoneNumber: email, otp });
+    const otpEntry = await OTP.findOne({
+      phoneNumber: email,
+      otp: otp,
+    });
+    console.log("Database entry:", otpEntry);
+
+    try {
+      const allOTPs = await OTP.find({});
+      console.log("All OTP records:", allOTPs);
+    } catch (error) {
+      console.error("Error retrieving OTP records:", error);
+    }
 
     if (!otpEntry) {
       return res.status(400).json({ error: "Invalid OTP" });
@@ -73,6 +90,7 @@ exports.verifyOtp = async (req, res) => {
     await OTP.deleteOne({ _id: otpEntry._id });
     res.status(200).json({ message: "OTP verified successfully" });
   } catch (error) {
-    res.status(500).json({ error: "Server error", error });
+    console.error("Error during OTP verification:", error);
+    res.status(500).json({ error: "Server error", details: error.message });
   }
 };
