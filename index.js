@@ -21,6 +21,10 @@ app.get("/", (req, res) => {
   res.send("Server is working");
 });
 
+app.get("/test-cors", (req, res) => {
+  res.json({ message: "CORS is working" });
+});
+
 // Routes
 app.use("/excelData", excelDataRoutes);
 app.use("/api", consignmentRoutes);
