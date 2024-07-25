@@ -11,11 +11,11 @@ const app = express();
 // Connect to the database
 connectDB();
 
-// Middleware
-app.use(express.json());
-
 // Enable CORS for all origins
 app.use(cors());
+
+// Middleware
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Server is working");
